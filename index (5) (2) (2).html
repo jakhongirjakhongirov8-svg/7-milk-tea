@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>7 Milk Tea</title>
+    <style>
+        :root {
+            --bg: #fff8f0;
+            --card: #fff;
+            --ink: #3b2a20;
+            --mut: #8a7565;
+            --ac: #c9825b;
+            --ac2: #f4b6c2;
+            --gr: #a8c686;
+            --line: #f0e2d3;
+            --sh: 0 8px 24px rgba(120, 80, 50, .12);
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        @media(prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #241a15;
+                --card: #33251d;
+                --ink: #f7eadd;
+                --mut: #c2a993;
+                --line: #4a3629;
+                --sh: 0 8px 24px rgba(0, 0, 0, .4)
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #241a15;
+            --card: #33251d;
+            --ink: #f7eadd;
+            --mut: #c2a993;
+            --line: #4a3629;
+            --sh: 0 8px 24px rgba(0, 0, 0, .4)
+        }
+
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px);
+            scroll-behavior: smooth
+        }
+
+        * {
+            text-decoration: none;
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.55
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            margin: 0 0 .4em;
+            line-height: 1.15
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 7vw, 4.2rem)
+        }
+
+        h2 {
+            font-size: clamp(1.7rem, 4.5vw, 2.6rem)
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px
+        }
+
+        header {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 20;
+            background: color-mix(in srgb, var(--bg) 88%, transparent);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            gap: 10px
+        }
+
+        .logo {
+            font-family: Georgia, serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            cursor: pointer;
+            white-space: nowrap
+        }
+
+        .logo span {
+            color: var(--ac)
+        }
+
+        nav {
+            display: flex;
+            gap: 4px
+        }
+
+        nav a {
+            padding: 8px 12px;
+            border-radius: 99px;
+            color: var(--ink);
+            text-decoration: none;
+            font-size: .95rem;
+            cursor: pointer
+        }
+
+        nav a.on,
+        nav a:hover {
+            background: var(--ac);
+            color: #fff
+        }
+
+        .tools {
+            display: flex;
+            gap: 8px
+        }
+
+        .ib {
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            border-radius: 99px;
+            height: 40px;
+            min-width: 40px;
+            padding: 0 12px;
+            font-size: 1rem;
+            cursor: pointer
+        }
+
+        .burger {
+            display: none
+        }
+
+        @media(max-width:780px) {
+            .burger {
+                display: block
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: var(--bg);
+                padding: 10px 20px 16px;
+                border-bottom: 1px solid var(--line)
+            }
+
+            nav.open {
+                display: flex
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            border: 0;
+            background: var(--ac);
+            color: #fff;
+            padding: 14px 26px;
+            border-radius: 99px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--sh);
+            text-decoration: none
+        }
+
+        .btn.alt {
+            background: var(--card);
+            color: var(--ink);
+            border: 1px solid var(--line)
+        }
+
+        .page {
+            display: none;
+            animation: in .4s
+        }
+
+        .page.on {
+            display: block
+        }
+
+        @keyframes in {
+            from {
+                opacity: 0;
+                transform: translateY(12px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 30px;
+            align-items: center;
+            padding: 50px 0
+        }
+
+        @media(max-width:780px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 30px 0
+            }
+
+            .hero .cta {
+                justify-content: center
+            }
+        }
+
+        .hero p {
+            color: var(--mut);
+            font-size: 1.1rem;
+            max-width: 520px
+        }
+
+        .cta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 22px
+        }
+
+        .art {
+            position: relative;
+            aspect-ratio: 1;
+            max-width: 420px;
+            margin: auto;
+            width: 100%;
+            display: grid;
+            place-items: center
+        }
+
+        .art:before {
+            content: "";
+            position: absolute;
+            inset: 6%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, var(--ac2), var(--ac));
+            opacity: .5;
+            filter: blur(2px)
+        }
+
+        .cup {
+            position: relative;
+            font-size: clamp(120px, 30vw, 220px);
+            animation: fl 4s ease-in-out infinite
+        }
+
+        @keyframes fl {
+            50% {
+                transform: translateY(-14px) rotate(3deg)
+            }
+        }
+
+        .pill {
+            position: absolute;
+            background: var(--card);
+            box-shadow: var(--sh);
+            border-radius: 99px;
+            padding: 8px 14px;
+            font-size: .85rem;
+            font-weight: 600
+        }
+
+        .sec {
+            padding: 40px 0
+        }
+
+        .grid {
+            display: grid;
+            gap: 18px;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr))
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 20px;
+            box-shadow: var(--sh)
+        }
+
+        .card .em {
+            font-size: 3rem
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: transform .2s
+        }
+
+        .item:hover {
+            transform: translateY(-4px)
+        }
+
+        .item .top {
+            height: 110px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            font-size: 3.6rem
+        }
+
+        .price {
+            font-weight: 700;
+            color: var(--ac)
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 8px
+        }
+
+        .add {
+            border: 0;
+            background: var(--ink);
+            color: var(--bg);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 4px 0 18px
+        }
+
+        .tabs button {
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            padding: 9px 18px;
+            border-radius: 99px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: .95rem
+        }
+
+        .tabs button.on {
+            background: var(--ac);
+            color: #fff;
+            border-color: var(--ac)
+        }
+
+        .band {
+            background: linear-gradient(120deg, var(--ac), #e39aa9);
+            color: #fff;
+            border-radius: 28px;
+            padding: 36px 26px;
+            text-align: center;
+            margin: 30px 0
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 14px;
+            text-align: center
+        }
+
+        .stats b {
+            font-family: Georgia, serif;
+            font-size: 2.2rem;
+            display: block;
+            color: var(--ac)
+        }
+
+        .two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 26px;
+            align-items: center
+        }
+
+        @media(max-width:780px) {
+            .two {
+                grid-template-columns: 1fr
+            }
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 13px 14px;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font: inherit;
+            margin-bottom: 12px
+        }
+
+        label {
+            font-size: .9rem;
+            color: var(--mut)
+        }
+
+        .rev {
+            font-style: italic;
+            color: var(--mut)
+        }
+
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 40px;
+            padding: 30px 0;
+            color: var(--mut);
+            text-align: center;
+            font-size: .9rem
+        }
+
+        #drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: min(400px, 100%);
+            background: var(--bg);
+            z-index: 40;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, .25);
+            transform: translateX(105%);
+            transition: .3s;
+            display: flex;
+            flex-direction: column;
+            padding: calc(18px + env(safe-area-inset-top, 0px)) 18px calc(18px + env(safe-area-inset-bottom, 0px))
+        }
+
+        #drawer.open {
+            transform: none
+        }
+
+        #lines {
+            flex: 1;
+            overflow: auto
+        }
+
+        .ln {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .ln .n {
+            flex: 1
+        }
+
+        .q button {
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer
+        }
+
+        .badge {
+            background: var(--ac2);
+            color: #3b2a20;
+            border-radius: 99px;
+            padding: 0 7px;
+            font-size: .8rem;
+            margin-left: 4px;
+            font-weight: 700
+        }
+
+        #toast {
+            position: fixed;
+            left: 50%;
+            bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+            transform: translate(-50%, 100px);
+            background: var(--ink);
+            color: var(--bg);
+            padding: 12px 20px;
+            border-radius: 99px;
+            z-index: 50;
+            transition: .3s
+        }
+
+        #toast.on {
+            transform: translate(-50%, 0)
+        }
+
+        .desc {
+            color: var(--mut);
+            font-size: .82rem;
+            line-height: 1.35
+        }
+
+        .hit {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #fff;
+            color: #3b2a20;
+            font-size: .72rem;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 99px
+        }
+
+        .item .top {
+            position: relative
+        }
+
+        #ov {
+            position: fixed;
+            inset: 0;
+            background: rgba(30, 15, 5, .45);
+            z-index: 35;
+            opacity: 0;
+            pointer-events: none;
+            transition: .3s
+        }
+
+        #ov.open {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        #ok {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            background: rgba(30, 15, 5, .55);
+            display: none;
+            place-items: center;
+            padding: 20px
+        }
+
+        #ok.open {
+            display: grid
+        }
+
+        #ok .card {
+            max-width: 380px;
+            text-align: center
+        }
+
+        .steps {
+            counter-reset: s
+        }
+
+        .steps .card {
+            position: relative;
+            padding-top: 34px
+        }
+
+        .steps .card:before {
+            counter-increment: s;
+            content: counter(s);
+            position: absolute;
+            top: -14px;
+            left: 20px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--ac);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-weight: 700
+        }
+
+        .tools select {
+            width: auto;
+            margin: 0;
+            padding: 0 8px;
+            height: 40px;
+            border-radius: 99px
+        }
+
+        .fav {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            border: 0;
+            background: rgba(255, 255, 255, .88);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1
+        }
+
+        #opt {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            background: rgba(30, 15, 5, .55);
+            display: none;
+            place-items: center;
+            padding: 20px
+        }
+
+        #opt.open {
+            display: grid
+        }
+
+        #opt .card {
+            width: 100%;
+            max-width: 380px;
+            max-height: 100%;
+            overflow: auto
+        }
+
+        #drawer {
+            overflow-y: auto
+        }
+
+        #lines {
+            flex: 1 0 auto;
+            min-height: 110px
+        }
+
+        .tools select {
+            width: auto
+        }
+
+        #lg {
+            font-weight: 700
+        }
+
+        .demo {
+            background: var(--ac2);
+            color: #3b2a20;
+            text-align: center;
+            font-size: .82rem;
+            padding: 6px 12px
+        }
+
+        .img {
+            width: 120px;
+        }
+
+        .img2 {
+            width: 15px;
+        }
+
+        .img3 {
+            width: 20px;
+        }
+    </style>
+    <style>
+        .cp {
+            height: 100px;
+            max-width: 90%;
+            object-fit: contain;
+            filter: drop-shadow(0 6px 8px rgba(80, 40, 10, .25))
+        }
+
+        .ci {
+            height: 44px;
+            width: 30px;
+            object-fit: contain
+        }
+
+        .item {
+            padding: 16px;
+            gap: 8px
+        }
+
+        .item .top {
+            height: 170px
+        }
+
+        .cp {
+            height: 150px;
+            width: auto;
+            filter: drop-shadow(0 6px 8px rgba(80, 40, 10, .18))
+        }
+
+        svg.ci {
+            height: 50px;
+            width: auto
+        }
+
+        .ln .n small {
+            display: block
+        }
+
+        .item h3 {
+            min-height: 2.4em
+        }
+
+        .item .desc {
+            min-height: 2.6em
+        }
+
+        .grid {
+            gap: 22px
+        }
+
+        .item .add {
+            width: 44px;
+            height: 44px;
+            font-size: 1.5rem
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="wrap bar">
+            <div class="logo" data-go="home"><span>7 Milk Tea</span></div>
+            <nav id="nav"><a data-go="home" data-t="n1"></a><a data-go="menu" data-t="n2"></a><a data-go="about"
+                    data-t="n3"></a><a data-go="places" data-t="n4"></a><a data-go="contact" data-t="n5"></a></nav>
+            <div class="tools"><button class="ib" id="lg" aria-label="Language">RU</button><button class="ib" id="th"
+                    aria-label="Theme">🌗</button><button class="ib" id="cb" aria-label="Cart">🛒<span class="badge"
+                        id="cn">0</span></button><button class="ib burger" id="bg" aria-label="Menu">☰</button></div>
+        </div>
+    </header>
+    <main class="wrap">
+        <section class="page" id="home">
+            <div class="hero">
+                <div>
+                    <h1><span data-t="h1"></span> <span data-t="h2" style="color:var(--ac)"></span></h1>
+                    <p data-t="hp"></p>
+                    <div class="cta"><button class="btn" data-go="menu" data-t="b1"></button><button class="btn alt"
+                            data-go="places" data-t="b2"></button></div>
+                </div>
+                <div class="art">
+                    <div class="cup"><img class="img" src="picture_2d2814462c3545709ecf0c37a8397079.png" alt=""></div>
+                </div>
+            </div>
+            <div class="sec">
+                <h2 style="text-align:center" data-t="why"></h2>
+                <div class="grid">
+                    <div class="card">
+                        <div class="em">🍃</div>
+                        <h3 data-t="f1t"></h3>
+                        <p data-t="f1d"></p>
+                    </div>
+                    <div class="card">
+                        <div class="em">🥛</div>
+                        <h3 data-t="f2t"></h3>
+                        <p data-t="f2d"></p>
+                    </div>
+                    <div class="card">
+                        <div class="em">🎚️</div>
+                        <h3 data-t="f3t"></h3>
+                        <p data-t="f3d"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="sec">
+                <h2 data-t="hits"></h2>
+                <div class="grid" id="hits"></div>
+            </div>
+            <div class="band">
+                <h2 data-t="bt"></h2><button class="btn alt" data-go="menu" data-t="b1"></button>
+            </div>
+        </section>
+        <section class="page" id="menu">
+            <div class="sec">
+                <h2 data-t="n2"></h2>
+                <p class="rev" data-t="mnote"></p><input id="q" data-p="search">
+                <div class="tabs" id="tabs"></div>
+                <div class="grid" id="mg"></div>
+            </div>
+        </section>
+        <section class="page" id="about">
+            <div class="sec two">
+                <div>
+                    <h2 data-t="n3"></h2>
+                    <p data-t="ab1"></p>
+                    <p data-t="ab2"></p><button class="btn" data-go="menu" data-t="b1"></button>
+                </div>
+                <div class="card" style="text-align:center">
+                    <div style="font-size:7rem">🍵</div>
+                </div>
+            </div>
+        </section>
+        <section class="page" id="places">
+            <div class="sec">
+                <h2 data-t="n4"></h2>
+                <div class="grid"><a class="card" href="https://yandex.com/maps/org/7_milk_tea/162572841706/"
+                        target="_blank" rel="noopener">
+                        <div class="em">📍</div>
+                        <h3 data-t="city"></h3>
+                        <p data-t="addr"></p>
+                    </a></div>
+            </div>
+        </section>
+        <section class="page" id="contact">
+            <div class="sec two">
+                <div>
+                    <h2 data-t="n5"></h2>
+                    <p data-t="cp"></p>
+                    <p>📞 <a href="tel:+998993416116">+998 99 341 61 16</a><br><br><a
+                            href="https://web.telegram.org/a/#-1002705418649" target="_blank" rel="noopener"><img
+                                class="img2"
+                                src="data:image/webp;base64,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"
+                                alt="">Telegram</a><br><a href="https://www.instagram.com/bonjour_bubbleteauz/"
+                            target="_blank" rel="noopener"><img class="img3"
+                                src="data:image/webp;base64,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"
+                                alt="">Instagram</a></p>
+                </div>
+                <div class="card"><label data-t="nm"></label><input id="cname"><label data-t="ph"></label><input
+                        id="cph" type="tel"><label data-t="msg"></label><textarea id="cmsg" rows="4"></textarea><button
+                        class="btn" id="send" data-t="send"></button></div>
+            </div>
+        </section>
+    </main>
+    <footer>© 7 Milk Tea</footer>
+    <aside id="drawer">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <h2 style="margin:0" data-t="cart"></h2><button class="ib" id="cc" aria-label="Close">✕</button>
+        </div>
+        <div id="lines"></div><input id="oname" data-p="nm" autocomplete="name"><input id="ophone" data-p="ph"
+            type="tel" autocomplete="tel">
+        <div id="sum"></div><button class="btn" id="ord" data-t="order"></button>
+    </aside>
+    <div id="ov"></div>
+    <div id="ok">
+        <div class="card">
+            <div style="font-size:4rem">🎉</div>
+            <h2 data-t="thx"></h2>
+            <p id="okt"></p><button class="btn" id="okb">OK</button>
+        </div>
+    </div>
+    <div id="opt">
+        <div class="card">
+            <h3 id="ot"></h3><label data-t="sugar"></label><select id="osu">
+                <option>0%</option>
+                <option>30%</option>
+                <option>50%</option>
+                <option>70%</option>
+                <option selected>100%</option>
+            </select><label data-t="top"></label><select id="otp"></select>
+            <div class="row" style="padding-bottom:10px"><b class="price" id="opr"></b><button class="btn" id="oadd"
+                    data-t="add"></button></div><button class="btn alt" id="ox" style="width:100%"
+                data-t="cancel"></button>
+        </div>
+    </div>
+    <div id="toast"></div>
+    <script>
+        // [nomi, kategoriya, narx, emoji, rang, kod]
+        const M = [
+            ["Qora shakar tapioka choyi", 0, 40000, "🟤", "#e8c9a8", "A1"], ["Sutli choy", 0, 40000, "🧋", "#f3dcc4", "A3"], ["O'rikli sutli choy", 0, 40000, "🍑", "#ffd8c4", "A3"], ["Jasmin sutli choy", 0, 40000, "🌼", "#fff0c2", "A1"], ["Yashil choy limon", 0, 40000, "🍋", "#e3f0bf", "B3"], ["Qulupnayli chizmik", 0, 40000, "🍓", "#ffd0d8", "B4"], ["Uzumli sutli choy", 0, 40000, "🍇", "#e6d3f2", "C1"], ["Mango limon", 0, 40000, "🥭", "#ffe3a3", "C5"], ["Ananasli choy", 0, 40000, "🍍", "#fff0b0", "D3"], ["Uzumli kokos", 0, 40000, "🥥", "#eadcf2", "D3"],
+            ["Mango choyi", 1, 34000, "🥭", "#ffe3a3", "A1"], ["Soya sutli choy", 1, 34000, "🥛", "#f3e8d6", "A2"], ["Pudingli sutli choy", 1, 34000, "🍮", "#ffe9b8", "A5"], ["Qizil loviyali sutli choy", 1, 34000, "🫘", "#f0d2c4", "A6"], ["Qora sutli choy", 1, 40000, "⚫", "#e2d5cc", "A7"], ["Jasmin sutli choy", 1, 40000, "🌼", "#fff0c2", "B2"],
+            ["Mango choyi", 2, 40000, "🥭", "#ffe3a3", "B1"], ["Passion mevali choy", 2, 42000, "🍹", "#ffe0a0", "B5"], ["Limon choyi", 2, 40000, "🍋", "#fff3b0", "B6"], ["O'rmon mevali choy", 2, 40000, "🍓", "#ffc4c4", "B7"], ["Jasmin choyi", 2, 40000, "🌼", "#fff0c2", "B8"], ["Tog' choyi", 2, 40000, "🍃", "#d5e8bf", "B9"], ["Ko'k mevali choy", 2, 40000, "🫐", "#d8d4f2", "B10"], ["Muzli limon choyi", 2, 35000, "🧊", "#dff3df", "B11"],
+            ["Kumquat limon", 3, 40000, "🍊", "#ffd9a8", "B12"], ["Jasmin yashil choy", 3, 40000, "🍵", "#d5e8bf", "B13"], ["Greyfurt limon", 3, 40000, "🍊", "#ffc9a8", "B14"], ["Passion mango", 3, 42000, "🥭", "#ffe3a3", "C3"], ["Mango ananas choyi", 3, 42000, "🍍", "#ffeaa8", "C4"], ["Mango limon kokos", 3, 42000, "🥥", "#fff0c2", "C6"], ["Passion uzum", 3, 42000, "🍇", "#e6d3f2", "C7"],
+            ["Amerikano qahva", 4, 30000, "☕", "#e0cbb8", "D1"], ["Latte qahva", 4, 40000, "☕", "#f3dcc4", "D2"],
+            ["Kokos yong'og'i", 5, 1000, "🥥", "#f4efe8", ""], ["Qizil loviya", 5, 1000, "🫘", "#f0d2c4", ""], ["Marvarid", 5, 1000, "⚪", "#e2d5cc", ""], ["Kui bo bo", 5, 1000, "🟡", "#fff0c2", ""], ["Puding", 5, 1000, "🍮", "#ffe9b8", ""]];
+        const CATS = [["Молочные чаи и тапиока", "Tapioka va sutli choylar"], ["Фруктовые чаи", "Mevali choylar"], ["Свежеприготовленные напитки", "Yangi tayyorlangan ichimliklar"], ["Кофе", "Qahva"], ["Добавки (топпинги)", "Masalliqlar (topping)"]], TOP = [33, 34, 35, 36, 37], HIT = [0, 1, 7, 5];
+        const ND = { uz: ["Qora shakar ta'mli choy, tapioka (boba) sharchalari bilan", "Klassik sutli choy", "O'rik ta'mli sutli choy", "Jasmin hidli sutli choy", "Yashil choy va limon", "Qulupnay ta'mli desert ichimlik", "Uzum ta'mli sutli choy", "Mango va limon ta'mli ichimlik", "Ananas ta'mli choy", "Uzum va kokos ta'mli ichimlik", "Mango ta'mli choy", "Soya suti bilan choy", "Puding qo'shilgan sutli choy", "Qizil loviya qo'shilgan sutli choy", "Qora choy va sut", "Jasmin choyi va sut", "Mango ta'mli choy, haqiqiy meva bilan", "Passion mevasi (marakuya) bilan choy, haqiqiy meva bilan", "Limonli choy, haqiqiy meva bilan", "O'rmon rezavorlari bilan choy, haqiqiy meva bilan", "Jasmin hidli choy, haqiqiy meva bilan", "Yashil rangli tog' choyi", "Ko'k rezavorlar bilan choy, haqiqiy meva bilan", "Sovuq limonli choy, muz bilan", "Kumquat (kichkina apelsinga o'xshash sitrus meva) va limon ichimligi", "Jasmin hidli yashil choy", "Greyfurt va limon ichimligi", "Passion mevasi va mango ichimligi", "Mango va ananas choyi", "Mango, limon va kokos ichimligi", "Passion mevasi va uzum ichimligi", "Sutsiz qora qahva (americano)", "Sutli qahva (latte)", "Kokos bo'laklari", "Shirin qizil loviya", "Tapioka sharchalari (marvarid)", "Qo'shimcha topping", "Yumshoq puding"], ru: ["Чай со вкусом чёрного сахара и шариками тапиоки", "Классический чай с молоком", "Молочный чай со вкусом абрикоса", "Молочный чай с ароматом жасмина", "Зелёный чай с лимоном", "Десертный напиток со вкусом клубники", "Молочный чай со вкусом винограда", "Напиток со вкусом манго и лимона", "Чай со вкусом ананаса", "Напиток со вкусом винограда и кокоса", "Чай со вкусом манго", "Чай с соевым молоком", "Молочный чай с пудингом", "Молочный чай с красной фасолью", "Чёрный чай с молоком", "Жасминовый чай с молоком", "Чай с манго и настоящими фруктами", "Чай с маракуйей и настоящими фруктами", "Лимонный чай с настоящими фруктами", "Чай с лесными ягодами и настоящими фруктами", "Жасминовый чай с настоящими фруктами", "Зелёный горный чай", "Чай с синими ягодами и настоящими фруктами", "Холодный лимонный чай со льдом", "Напиток с кумкватом (маленький цитрус, похож на мини-апельсин) и лимоном", "Зелёный чай с ароматом жасмина", "Напиток с грейпфрутом и лимоном", "Напиток с маракуйей и манго", "Чай с манго и ананасом", "Напиток с манго, лимоном и кокосом", "Напиток с маракуйей и виноградом", "Чёрный кофе без молока (американо)", "Кофе с молоком (латте)", "Кокосовая стружка", "Сладкая красная фасоль", "Шарики тапиоки (жемчужины)", "Дополнительный топпинг", "Нежный пудинг"] };
+        const NC = [0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 4, 4, 4]; M.forEach((m, i) => m[1] = NC[i]);
+        const NR = ["Чай с тапиокой на чёрном сахаре", "Молочный чай", "Молочный чай с абрикосом", "Молочный жасминовый чай", "Зелёный чай с лимоном", "Клубничный чизкейк", "Молочный чай с виноградом", "Манго-лимон", "Ананасовый чай", "Виноград с кокосом", "Манговый чай", "Соевый молочный чай", "Молочный чай с пудингом", "Молочный чай с красной фасолью", "Чёрный молочный чай", "Молочный жасминовый чай", "Манговый чай", "Чай с маракуйей и фруктами", "Лимонный чай", "Лесной фруктовый чай", "Жасминовый чай", "Горный чай", "Чай с синими ягодами", "Ледяной лимонный чай", "Кумкват-лимон", "Зелёный жасминовый чай", "Грейпфрут-лимон", "Маракуйя-манго", "Манго-ананасовый чай", "Манго-лимон-кокос", "Маракуйя-виноград", "Кофе американо", "Кофе латте", "Кокосовая стружка", "Красная фасоль", "Жемчужины", "Куи бо бо", "Пудинг"];
+        const T = {
+            ru: { mnote: "Цены в сумах. При заказе выберите сладость (0–100%) и топпинг (+1 000 сум).", n1: "Главная", n2: "Меню", n3: "О нас", n4: "Адреса", n5: "Контакты", h1: "Чай, который", h2: "обнимает", hp: "Свежий чай, натуральное молоко и мягкая тапиока — готовим прямо при вас.", b1: "Смотреть меню", b2: "Найти нас", why: "Почему нас любят", f1t: "Настоящий чай", f1d: "Заваренные листья, без порошков.", f2t: "Свежее молоко", f2d: "Мягкий сливочный вкус в каждом стакане.", f3t: "Ваша сладость", f3d: "Сахар от 0% до 100% — как вам нравится.", hits: "Хиты", bt: "Закажите онлайн", ab1: "7 Milk Tea — это любовь к тайваньскому чаю и уютные места, где приятно проводить время.", ab2: "Мы готовим каждый напиток свежим и подстраиваем его под ваш вкус.", city: "Ташкент", addr: "Открыть на карте", cp: "Вопросы, сотрудничество или заказ на праздник — напишите нам.", nm: "Имя", ph: "Телефон", msg: "Сообщение", send: "Отправить", cart: "Корзина", order: "Оформить заказ", thx: "Почти готово!", sugar: "Сахар", top: "Топпинг", add: "Добавить", cancel: "Отмена", search: "🔍 Найти напиток", fav: "Избранное", none: "Без топпинга", empty: "Корзина пуста — загляните в меню 🧋", sum: "Итого", nf: "Ничего не найдено", added: "Добавлено 🧋", need: "Укажите имя и телефон", cur: "сум", okm: "Спасибо, {n}! Заказ №{no} на {s}. Отправьте открывшееся сообщение в Telegram — мы подтвердим заказ." },
+            uz: { mnote: "Narxlar so'mda. Buyurtmada shakar miqdori (0–100%) va topping (+1 000 so'm) tanlanadi.", n1: "Bosh sahifa", n2: "Menyu", n3: "Biz haqimizda", n4: "Manzillar", n5: "Aloqa", h1: "Sizni", h2: "quchoqlaydigan choy", hp: "Yangi choy, tabiiy sut va yumshoq tapioka — ko'z oldingizda tayyorlaymiz.", b1: "Menyuni ko'rish", b2: "Bizni toping", why: "Nega bizni yaxshi ko'rishadi", f1t: "Haqiqiy choy", f1d: "Damlangan barglar, kukunsiz.", f2t: "Yangi sut", f2d: "Har bir stakanda yumshoq qaymoqli ta'm.", f3t: "O'zingizga mos shirinlik", f3d: "Shakar 0% dan 100% gacha — o'zingiz tanlang.", hits: "Ommabop", bt: "Onlayn buyurtma bering", ab1: "7 Milk Tea — Tayvan choyiga muhabbat va vaqt o'tkazish yoqimli bo'lgan qulay joylar.", ab2: "Har bir ichimlikni yangi tayyorlaymiz va didingizga moslaymiz.", city: "Toshkent", addr: "Xaritada ochish", cp: "Savollar, hamkorlik yoki bayram buyurtmasi — bizga yozing.", nm: "Ism", ph: "Telefon", msg: "Xabar", send: "Yuborish", cart: "Savat", order: "Buyurtma berish", thx: "Deyarli tayyor!", sugar: "Shakar", top: "Topping", add: "Qo'shish", cancel: "Bekor qilish", search: "🔍 Ichimlik qidirish", fav: "Sevimlilar", none: "Toppingsiz", empty: "Savat bo'sh — menyuga qarang 🧋", sum: "Jami", nf: "Hech narsa topilmadi", added: "Qo'shildi 🧋", need: "Ism va telefonni kiriting", cur: "so'm", okm: "Rahmat, {n}! №{no} buyurtma ({s}). Telegramda ochilgan xabarni yuboring — buyurtmangizni tasdiqlaymiz." }
+        };
+        const $ = s => document.querySelector(s);
+        const ls = k => { try { return localStorage.getItem(k) } catch (e) { return null } }, sv = (k, v) => { try { localStorage.setItem(k, v) } catch (e) { } };
+        let lang = ls("sd_lang") == "ru" ? "ru" : "uz", cat = 0, qs = "", cart = {}, fav = [], oi = 0, lastTot = 0;
+        try { cart = JSON.parse(ls("sd_cart4") || "{}"); fav = JSON.parse(ls("sd_fav2") || "[]") } catch (e) { }
+        const t = k => T[lang][k], nm = i => lang == "ru" ? NR[i] : M[i][0], fmt = n => String(n).replace(/\B(?=(\d{3})+$)/g, " ") + " " + t("cur");
+        const toast = x => { const e = $("#toast"); e.textContent = x; e.classList.add("on"); setTimeout(() => e.classList.remove("on"), 2000) };
+        function sendTg(txt) { window.open("https://t.me/share/url?url=" + encodeURIComponent("7 Milk Tea") + "&text=" + encodeURIComponent(txt), "_blank") }
+        function go(p) { if (!document.getElementById(p)) p = "home"; document.querySelectorAll(".page").forEach(x => x.classList.toggle("on", x.id == p)); document.querySelectorAll("nav a").forEach(a => a.classList.toggle("on", a.dataset.go == p)); $("#nav").classList.remove("open"); scrollTo(0, 0); if (location.hash != "#" + p) history.replaceState(null, "", "#" + p) }
+        const CC = [["#fdaf4f", "#d8923c"], ["#ffddb5", "#ffe1b3"], ["#fff3cd", "#ffeec4"], ["#e9fb8b", "#eced7b"], ["#ebff62", "#d7f22e"], ["#ff5e55", "#fb4a44"], ["#e6a4e1", "#e49bd9"], ["#ffcf13", "#ffc316"], ["#ffe027", "#ffcf00"], ["#cf7ccd", "#f0d2f4"], ["#ffeec7", "#ffecc1"], ["#ffedc5", "#ffedc8"], ["#fff8d4", "#fff8ce"], ["#fff1c9", "#fff1cb"], ["#ffe7cb", "#ffe5c1"], ["#fbffc3", "#ecff7e"], ["#ffe72c", "#ffd82f"], ["#ffe456", "#fdcf1c"], ["#fff342", "#f5e500"], ["#ff2f2a", "#fd0b11"], ["#ffd727", "#ffcf1f"], ["#cdf31f", "#a9d417"], ["#b45fb3", "#bd47a9"], ["#e0fd72", "#caf518"], ["#ffbd0b", "#feb800"], ["#e6f838", "#c0da0d"], ["#ffdd52", "#ff8831"], ["#ffe159", "#ffcb00"], ["#ffd82f", "#ffc600"], ["#ffeb7d", "#ffc700"], ["#e378a8", "#ae217d"], ["#e96e14", "#753725"], ["#ffb140", "#fbf3e6"]], SP = [["pearl", 1, 0, 0], ["cream", 1, 0, 0], ["cream", 1, 0, 0], ["jelly", 1, 0, 0], ["none", 0, 1, 0], ["berry", 0, 1, 0], ["jelly", 0, 1, 0], ["none", 0, 1, 0], ["none", 0, 1, 0], ["none", 0, 1, 1], ["cream", 1, 0, 0], ["cream", 1, 0, 0], ["cream", 1, 0, 0], ["berry", 1, 0, 0], ["pearl", 1, 0, 0], ["jelly", 0, 0, 0], ["none", 0, 1, 0], ["cream", 0, 1, 0], ["lemon", 0, 1, 0], ["berry", 0, 1, 0], ["none", 0, 1, 0], ["jelly", 0, 1, 0], ["berry", 0, 1, 0], ["lemon", 0, 1, 0], ["none", 0, 1, 0], ["jelly", 0, 1, 0], ["none", 0, 1, 0], ["lemon", 0, 1, 0], ["none", 0, 1, 0], ["cream", 0, 1, 0], ["cream", 0, 1, 0], ["none", 0, 1, 0], ["foam", 0, 1, 1]];
+        const hx = h => [1, 3, 5].map(k => parseInt(h.slice(k, k + 2), 16)), mx = (a, b, t) => { const A = hx(a), B = hx(b); return "#" + A.map((v, k) => Math.round(v + (B[k] - v) * t).toString(16).padStart(2, "0")).join("") };
+        let cupN = 0;
+        function cupSvg(i, cl) {
+            cl = cl || "cp"; const [c1, c2] = CC[i], [tp, bt, ic, ly] = SP[i], id = "c" + i + "_" + (++cupN); let o = "";
+            const tcol = mx(c1, "#ffffff", .35), dark = mx(c1, "#000000", .35);
+            o += `<svg class="${cl}" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${M[i][0]}"><defs><linearGradient id="L${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c1}"/>${ly ? `<stop offset=".55" stop-color="${c1}"/><stop offset=".78" stop-color="${c2}"/>` : ""}<stop offset="1" stop-color="${c2}"/></linearGradient><clipPath id="K${id}"><path d="M16 52H104L94 180Q93 190 84 190H36Q27 190 26 180Z"/></clipPath></defs>`;
+            o += `<ellipse cx="60" cy="194" rx="36" ry="4.5" fill="rgba(70,35,10,.2)"/><rect x="64" y="0" width="7" height="140" rx="3.5" fill="#4b3a31" transform="rotate(7 67 70)"/>`;
+            if (tp == "pearl") for (let r = 0; r < 2; r++)for (let k = 0; k < 6; k++)o += `<circle cx="${30 + k * 11 + r * 5}" cy="${44 - r * 7}" r="5.6" fill="#2b1a12"/><circle cx="${28.5 + k * 11 + r * 5}" cy="${42.2 - r * 7}" r="1.5" fill="#ffffff" opacity=".45"/>`;
+            if (tp == "cream") o += `<ellipse cx="45" cy="42" rx="17" ry="10" fill="${mx(c1, "#ffffff", .65)}"/><ellipse cx="72" cy="40" rx="18" ry="11" fill="${mx(c1, "#ffffff", .55)}"/><ellipse cx="58" cy="35" rx="13" ry="8" fill="${mx(c1, "#ffffff", .75)}"/>`;
+            if (tp == "jelly") for (let r = 0; r < 2; r++)for (let k = 0; k < 5; k++)o += `<rect x="${27 + k * 12 + r * 6}" y="${40 - r * 8}" width="10" height="10" rx="2.5" fill="${tcol}" stroke="${mx(c1, "#ffffff", .7)}" transform="rotate(${(k * 37 + r * 20) % 30 - 15} ${32 + k * 12 + r * 6} ${45 - r * 8})"/>`;
+            if (tp == "berry") for (let r = 0; r < 2; r++)for (let k = 0; k < 6; k++)o += `<circle cx="${30 + k * 11 + r * 5}" cy="${44 - r * 7}" r="5" fill="${dark}"/><circle cx="${28.6 + k * 11 + r * 5}" cy="${42.5 - r * 7}" r="1.4" fill="#ffffff" opacity=".5"/>`;
+            if (tp == "foam") o += `<ellipse cx="60" cy="46" rx="42" ry="9" fill="#fff6e6"/><ellipse cx="60" cy="42" rx="30" ry="7" fill="#fffaf0"/>`;
+            o += `<path d="M14 54Q14 26 60 24Q106 26 106 54Z" fill="rgba(255,255,255,.3)" stroke="rgba(255,255,255,.85)" stroke-width="1.5"/>`;
+            o += `<path d="M16 52H104L94 180Q93 190 84 190H36Q27 190 26 180Z" fill="url(#L${id})" fill-opacity=".97" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/><g clip-path="url(#K${id})">`;
+            if (ic) { [[22, 62, 14], [62, 58, -10], [80, 84, 20], [28, 90, -18], [72, 128, 10]].forEach(a => o += `<rect x="${a[0]}" y="${a[1]}" width="19" height="19" rx="4" fill="rgba(255,255,255,.3)" stroke="rgba(255,255,255,.65)" transform="rotate(${a[2]} ${a[0] + 9} ${a[1] + 9})"/>`) }
+            if (bt) { [[32, 180], [43, 181], [54, 182], [65, 182], [76, 181], [87, 179], [38, 169], [49, 171], [60, 172], [71, 171], [82, 169], [44, 159], [56, 161], [68, 160], [79, 158]].forEach(p => o += `<circle cx="${p[0]}" cy="${p[1]}" r="5.4" fill="#2b1a12"/><circle cx="${p[0] - 1.5}" cy="${p[1] - 1.8}" r="1.4" fill="#ffffff" opacity=".4"/>`) }
+            o += `<path d="M27 66L33 172" stroke="rgba(255,255,255,.4)" stroke-width="5" stroke-linecap="round"/><path d="M88 70L84 150" stroke="rgba(255,255,255,.18)" stroke-width="4" stroke-linecap="round"/></g>`;
+            o += `<circle cx="60" cy="118" r="18" fill="#fffaf0" fill-opacity=".95" stroke="#9a6a48" stroke-width="2"/><text x="60" y="126" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="22" fill="#9a6a48">7</text>`;
+            o += `<rect x="11" y="50" width="98" height="7" rx="3.5" fill="#ffffff" fill-opacity=".92" stroke="#e6d8c8"/>`;
+            if (tp == "lemon") { o += `<ellipse cx="34" cy="30" rx="10" ry="5" fill="#5fae4e" transform="rotate(-25 34 30)"/><ellipse cx="46" cy="25" rx="9" ry="4.5" fill="#76c261" transform="rotate(10 46 25)"/><circle cx="94" cy="44" r="14" fill="#ffe36b" stroke="#fff3a8" stroke-width="2.5"/><g stroke="#fff3a8" stroke-width="1.6"><path d="M94 32V56M82 44H106M85.5 35.5L102.5 52.5M102.5 35.5L85.5 52.5"/></g>` }
+            return o + "</svg>"
+        }
+        const pic = (i, c) => i < 33 ? cupSvg(i, c) : M[i][3];
+        function card(i) { const m = M[i]; return `<div class="card item"><div class="top" style="background:${m[4]}">${HIT.includes(i) ? '<span class="hit">🔥</span>' : ""}<button class="fav" data-fav="${i}">${fav.includes(i) ? "❤️" : "🤍"}</button>${pic(i, "cp")}</div><h3 style="font-size:1.1rem;margin:4px 0 0">${nm(i)}</h3><small class="desc">${ND[lang][i]}</small><div class="row"><span class="price">${fmt(m[2])}</span><button class="add" data-add="${i}" aria-label="+">+</button></div></div>` }
+        function drawMenu() { $("#tabs").innerHTML = CATS.map((c, j) => `<button class="${j == cat && !qs ? "on" : ""}" data-cat="${j}">${c[lang == "uz" ? 1 : 0]}</button>`).join("") + `<button class="${cat == 9 && !qs ? "on" : ""}" data-cat="9">❤️ ${t("fav")}</button>`; const L = M.map((m, i) => i).filter(i => qs ? nm(i).toLowerCase().includes(qs) : cat == 9 ? fav.includes(i) : M[i][1] == cat); $("#mg").innerHTML = L.map(card).join("") || `<p class="rev">${t("nf")}</p>` }
+        function apply() { document.documentElement.lang = lang; document.querySelectorAll("[data-t]").forEach(e => e.textContent = t(e.dataset.t)); document.querySelectorAll("[data-p]").forEach(e => e.placeholder = t(e.dataset.p)); $("#lg").textContent = lang == "ru" ? "UZ" : "RU"; $("#hits").innerHTML = HIT.map(card).join(""); drawMenu(); draw() }
+        const line = k => { const [a, su, tp] = k.split("|"), i = +a; return { i, pr: M[i][2] + (tp ? M[+tp][2] : 0), d: su ? `${t("sugar")} ${su}${tp ? " · + " + nm(+tp) : ""}` : "" } };
+        function draw() {
+            let n = 0, s = 0, h = ""; for (const k in cart) { if (!M[+k.split("|")[0]]) { delete cart[k]; continue } const l = line(k); n += cart[k]; s += cart[k] * l.pr; h += `<div class="ln"><span style="font-size:1.8rem">${pic(l.i, "ci")}</span><span class="n">${nm(l.i)}<br><small class="desc">${l.d}</small><small class="price">${fmt(l.pr)}</small></span><span class="q"><button data-q="${k},-1">−</button> ${cart[k]} <button data-q="${k},1">+</button></span></div>` }
+            sv("sd_cart4", JSON.stringify(cart)); lastTot = s; $("#cn").textContent = n; $("#lines").innerHTML = h || `<p class="rev">${t("empty")}</p>`; $("#sum").innerHTML = `<div class="row" style="padding-bottom:10px"><b>${t("sum")}</b><b class="price">${fmt(s)}</b></div>`
+        }
+        const oprice = () => M[oi][2] + ($("#otp").value ? M[+$("#otp").value][2] : 0), upO = () => $("#opr").textContent = fmt(oprice());
+        function openO(i) { oi = i; $("#ot").textContent = nm(i); $("#osu").value = "100%"; $("#otp").innerHTML = `<option value="">${t("none")}</option>` + TOP.map(x => `<option value="${x}">${nm(x)} (+${fmt(M[x][2])})</option>`).join(""); $("#opt").classList.add("open"); upO() }
+        document.addEventListener("click", e => {
+            const T_ = e.target, g = T_.closest("[data-go]"), a = T_.closest("[data-add]"), c = T_.closest("[data-cat]"), q = T_.closest("[data-q]"), f = T_.closest("[data-fav]");
+            if (g) go(g.dataset.go);
+            if (a) { const i = +a.dataset.add; if (M[i][1] == 4) { const k = i + "||"; cart[k] = (cart[k] || 0) + 1; draw(); toast(t("added")) } else openO(i) }
+            if (c) { cat = +c.dataset.cat; qs = ""; $("#q").value = ""; drawMenu() }
+            if (f) { const i = +f.dataset.fav; fav = fav.includes(i) ? fav.filter(x => x != i) : [...fav, i]; sv("sd_fav2", JSON.stringify(fav)); apply() }
+            if (q) { const p = q.dataset.q.split(","), k = p[0]; cart[k] = (cart[k] || 0) + +p[1]; if (cart[k] <= 0) delete cart[k]; draw() }
+        });
+        $("#otp").onchange = upO;
+        $("#oadd").onclick = () => { const k = [oi, $("#osu").value, $("#otp").value].join("|"); cart[k] = (cart[k] || 0) + 1; $("#opt").classList.remove("open"); draw(); toast(t("added")) };
+        $("#ox").onclick = () => $("#opt").classList.remove("open");
+        $("#q").oninput = e => { qs = e.target.value.trim().toLowerCase(); drawMenu() };
+        $("#lg").onclick = () => { lang = lang == "ru" ? "uz" : "ru"; sv("sd_lang", lang); apply() };
+        const openD = () => { $("#drawer").classList.add("open"); $("#ov").classList.add("open") }, closeD = () => { $("#drawer").classList.remove("open"); $("#ov").classList.remove("open") };
+        $("#cb").onclick = openD; $("#cc").onclick = closeD; $("#ov").onclick = closeD; $("#okb").onclick = () => $("#ok").classList.remove("open");
+        addEventListener("keydown", e => { if (e.key == "Escape") { closeD(); $("#ok").classList.remove("open"); $("#opt").classList.remove("open") } });
+        $("#ord").onclick = () => {
+            if (!Object.keys(cart).length) return toast(t("empty")); const n = $("#oname").value.trim(), p = $("#ophone").value.trim(); if (!n || p.replace(/\D/g, "").length < 7) return toast(t("need"));
+            const no = Math.floor(1000 + Math.random() * 9000), sl = lang; lang = "uz";
+            let txt = `🧋 Yangi buyurtma №${no}\n👤 ${n}\n📞 ${p}\n\n`; for (const k in cart) { const l = line(k); txt += `• ${nm(l.i)}${l.d ? " (" + l.d + ")" : ""} × ${cart[k]} = ${fmt(cart[k] * l.pr)}\n` } txt += `\n💰 ${t("sum")}: ${fmt(lastTot)}`; lang = sl;
+            $("#okt").textContent = t("okm").replace("{n}", n).replace("{no}", no).replace("{s}", fmt(lastTot));
+            cart = {}; draw(); closeD(); $("#ok").classList.add("open"); sendTg(txt)
+        };
+        $("#send").onclick = () => { const n = $("#cname").value.trim(), p = $("#cph").value.trim(), m = $("#cmsg").value.trim(); if (!n || !p) return toast(t("need")); sendTg(`💬 ${n}\n📞 ${p}\n\n${m}`);["#cname", "#cph", "#cmsg"].forEach(s => $(s).value = "") };
+        $("#bg").onclick = () => $("#nav").classList.toggle("open");
+        $("#th").onclick = () => { const r = document.documentElement, d = r.dataset.theme == "dark" || (!r.dataset.theme && matchMedia("(prefers-color-scheme:dark)").matches); r.dataset.theme = d ? "light" : "dark" };
+        addEventListener("hashchange", () => go(location.hash.slice(1)));
+        apply(); go(location.hash.slice(1) || "home");
+        function sendTg(txt) {
+            window.open("https://t.me/ProfdeFrancais6116?text=" + encodeURIComponent(txt), "_blank");
+        }
+    </script>
+</body>
+
+</html>
