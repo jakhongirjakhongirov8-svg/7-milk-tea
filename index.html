@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>7 Milk Tea</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+    <header>
+        <div class="wrap bar">
+            <div class="logo" data-go="home"><span>7 Milk Tea</span></div>
+            <nav id="nav"><a data-go="home" data-t="n1"></a><a data-go="menu" data-t="n2"></a><a data-go="about"
+                    data-t="n3"></a><a data-go="places" data-t="n4"></a><a data-go="contact" data-t="n5"></a></nav>
+            <div class="tools"><button class="ib" id="lg" aria-label="Language">RU</button><button class="ib" id="th"
+                    aria-label="Theme">🌗</button><button class="ib" id="cb" aria-label="Cart">🛒<span class="badge"
+                        id="cn">0</span></button><button class="ib burger" id="bg" aria-label="Menu">☰</button></div>
+        </div>
+    </header>
+    <main class="wrap">
+        <section class="page" id="home">
+            <div class="hero">
+                <div>
+                    <h1><span data-t="h1"></span> <span data-t="h2" style="color:var(--ac)"></span></h1>
+                    <p data-t="hp"></p>
+                    <div class="cta"><button class="btn" data-go="menu" data-t="b1"></button><button class="btn alt"
+                            data-go="places" data-t="b2"></button></div>
+                </div>
+                <div class="art">
+                    <div class="cup"><img class="img" src="picture_2d2814462c3545709ecf0c37a8397079.png" alt=""></div>
+                </div>
+            </div>
+            <div class="sec">
+                <h2 style="text-align:center" data-t="why"></h2>
+                <div class="grid">
+                    <div class="card">
+                        <div class="em">🍃</div>
+                        <h3 data-t="f1t"></h3>
+                        <p data-t="f1d"></p>
+                    </div>
+                    <div class="card">
+                        <div class="em">🥛</div>
+                        <h3 data-t="f2t"></h3>
+                        <p data-t="f2d"></p>
+                    </div>
+                    <div class="card">
+                        <div class="em">🎚️</div>
+                        <h3 data-t="f3t"></h3>
+                        <p data-t="f3d"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="sec">
+                <h2 data-t="hits"></h2>
+                <div class="grid" id="hits"></div>
+            </div>
+            <div class="band">
+                <h2 data-t="bt"></h2><button class="btn alt" data-go="menu" data-t="b1"></button>
+            </div>
+        </section>
+        <section class="page" id="menu">
+            <div class="sec">
+                <h2 data-t="n2"></h2>
+                <p class="rev" data-t="mnote"></p><input id="q" data-p="search">
+                <div class="tabs" id="tabs"></div>
+                <div class="grid" id="mg"></div>
+            </div>
+        </section>
+        <section class="page" id="about">
+            <div class="sec two">
+                <div>
+                    <h2 data-t="n3"></h2>
+                    <p data-t="ab1"></p>
+                    <p data-t="ab2"></p><button class="btn" data-go="menu" data-t="b1"></button>
+                </div>
+                <div class="card" style="text-align:center">
+                    <div style="font-size:7rem">🍵</div>
+                </div>
+            </div>
+        </section>
+        <section class="page" id="places">
+            <div class="sec">
+                <h2 data-t="n4"></h2>
+                <div class="grid"><a class="card" href="https://yandex.com/maps/org/7_milk_tea/162572841706/"
+                        target="_blank" rel="noopener">
+                        <div class="em">📍</div>
+                        <h3 data-t="city"></h3>
+                        <p data-t="addr"></p>
+                    </a>
+                    <a target="_blank" href="https://eda.yandex.ru/restaurant/7_milk_tea?utm_campaign=superapp_taxi_web&utm_medium=referral&utm_source=rst_shared_link">
+                        <div class="yandex">
+                            <h2 class="yndxy">Яндекс Еда</h2>
+                        </div>
+                    </a>
+                    <a target="_blank" href="https://www.uzumtezkor.uz/ru/discovery/search">
+                        <div class="uzum">
+                            <img class="uu" src="./unnamed.webp" alt="">
+                            <h2 class="ww">Uzum tezkor</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="page" id="contact">
+            <div class="sec two">
+                <div>
+                    <h2 data-t="n5"></h2>
+                    <p data-t="cp"></p>
+                    <p>📞 <a href="tel:+998993416116">+998 99 341 61 16</a><br><br><a
+                            href="https://t.me/Sevendegremilktea" target="_blank" rel="noopener"><img class="img2"
+                                src="data:image/webp;base64,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"
+                                alt="">Telegram</a><br><a href="https://www.instagram.com/bonjour_bubbleteauz/"
+                            target="_blank" rel="noopener"><img class="img3"
+                                src="data:image/webp;base64,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"
+                                alt="">Instagram</a></p>
+                </div>
+                <div class="card"><label data-t="nm"></label><input id="cname"><label data-t="ph"></label><input
+                        id="cph" type="tel"><label data-t="msg"></label><textarea id="cmsg" rows="4"></textarea><button
+                        class="btn" id="send" data-t="send"></button></div>
+            </div>
+        </section>
+    </main>
+    <footer>© 7 Milk Tea</footer>
+    <aside id="drawer">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <h2 style="margin:0" data-t="cart"></h2><button class="ib" id="cc" aria-label="Close">✕</button>
+        </div>
+        <div id="lines"></div><input id="oname" data-p="nm" autocomplete="name"><input id="ophone" data-p="ph"
+            type="tel" autocomplete="tel">
+        <div id="sum"></div><button class="btn" id="ord" data-t="order"></button>
+    </aside>
+    <div id="ov"></div>
+    <div id="ok">
+        <div class="card">
+            <div style="font-size:4rem">🎉</div>
+            <h2 data-t="thx"></h2>
+            <p id="okt"></p><button class="btn" id="okb">OK</button>
+        </div>
+    </div>
+    <div id="opt">
+        <div class="card">
+            <h3 id="ot"></h3><label data-t="sugar"></label><select id="osu">
+                <option>0%</option>
+                <option>30%</option>
+                <option>50%</option>
+                <option>70%</option>
+                <option selected>100%</option>
+            </select><label data-t="top"></label><select id="otp"></select>
+            <div class="row" style="padding-bottom:10px"><b class="price" id="opr"></b><button class="btn" id="oadd"
+                    data-t="add"></button></div><button class="btn alt" id="ox" style="width:100%"
+                data-t="cancel"></button>
+        </div>
+    </div>
+    <div id="toast"></div>
+    </footer>
+    <script src="./script.js"></script>
+</body>
+
+</html>
